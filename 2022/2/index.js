@@ -1,13 +1,7 @@
-SUNDAY = 0
-SATURDAY = 6
 countHours = (year, holidays) => {
-  const getExtraHoursFromHoliday = (total, holiday) => {
+  return holidays.reduce((total, holiday) => {
     const dayOfWeek = new Date(`${holiday}/${year}`).getDay()
-    const isAWorkingDayOfWeek = dayOfWeek > SUNDAY && dayOfWeek < SATURDAY
-    if (isAWorkingDayOfWeek) {
-      return total + 2
-    }
-    return total
-  }
-  return holidays.reduce(getExtraHoursFromHoliday, 0)
+    const isWorkingHoliday = dayOfWeek > 0 && dayOfWeek < 6
+    return total + (isWorkingHoliday ? 2 : 0)
+  }, 0)
 }
